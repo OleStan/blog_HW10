@@ -31,10 +31,10 @@
   <div id="reply_<%=parent.id%>" class="reply ">
     <%= %>
     <% if parent.ancestry.present? || parent.ancestry.nil? %>
-      <% if @comment.ancestry.present? || @comment.ancestry.nil? %>
-      <%= link_to "Reply", add_post_comment_path( @post, comment_id: @comment.id),
+      <%# if @comment.ancestry.present? || @comment.ancestry.nil? %>
+      <%#= link_to "Reply", add_post_comment_path( @post, comment_id: @comment.id),
                   remote: true if @comment.ancestry.nil? || @comment.ancestry.count("/") < 3 %>
-      <% end %>
+      <%# end %>
     <% end %>
 
     <%= link_to "Delete", post_comment_path(post_id: parent.post_id, id: parent.id),
