@@ -19,7 +19,7 @@
 
 <% unless current_author.nil?%>
   <%if @post.name == current_author.full_name%>
-<%= link_to 'Edit', edit_post_path(@post), class: 'btn btn-info', role: "button", style: "color: white" %>
+    <%= link_to 'Edit', edit_post_path(@post), class: 'btn btn-info', role: "button", style: "color: white" %>
   <% end %>
 <% end %>
 
@@ -28,48 +28,46 @@
 
 
 <% if nil? %>
-<script>
-    $(function(){
-        $("#comments_select").change(function(){
-            $('#comments_show').submit()
-        })
-    })
-</script>
+  <script>
+      $(function(){
+          $("#comments_select").change(function(){
+              $('#comments_show').submit()
+          })
+      })
+  </script>
 
-<div class="row">
-  <div class="col-6 col-md-3" style="margin-bottom: 2rem">
-    <h2>Comments</h2>
+  <div class="row">
+    <div class="col-6 col-md-3" style="margin-bottom: 2rem">
+      <h2>Comments</h2>
+    </div>
+    <div class="col-6 col-md-4">
+      <form action="<%= post_path(@post) %>" method='get' id='comments_show'>
+        <div class='field'>
+          <select name='comments_status' class='btn btn-secondary' id='comments_select'>
+            <option <%= @comment_status == 'published' ? 'selected' : '' %> >Published</option>
+            <option <%= @comment_status == 'unpublished' ? 'selected' : '' %> >Unpublished</option>
+          </select>
+        </div>
+      </form>
+    </div>
   </div>
-  <div class="col-6 col-md-4">
-    <form action="<%= post_path(@post) %>" method='get' id='comments_show'>
-      <div class='field'>
-        <select name='comments_status' class='btn btn-secondary' id='comments_select'>
-          <option <%= @comment_status == 'published' ? 'selected' : '' %> >Published</option>
-          <option <%= @comment_status == 'unpublished' ? 'selected' : '' %> >Unpublished</option>
-        </select>
-      </div>
-    </form>
-  </div>
-</div>
 <% end %>
 <div class="row">
-<h2>Comments</h2>
+  <h2>Comments</h2>
 </div>
 <% if @comments.any?%>
   <% @comments.each do |comment| %>
-
     <%= render "comment", comment: comment.subtree.arrange %>
-
   <% end %>
 <% end %>
 
 <% unless current_author.nil?%>
-  <h2>Add comments</h2>
+  <h2 id="add_comment">Add comments</h2>
   <div id="comment_new">
     <%= render 'comments/comm_add', comment_id: nil %>
   </div>
 <% else %>
-    <div class="alert alert-danger" role="alert">
-      Only registret user can add comment
-    </div>
+  <div class="alert alert-danger" role="alert">
+    Only registered user can add comment
+  </div>
 <% end %>

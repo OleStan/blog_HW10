@@ -1,9 +1,12 @@
-
 $('.reply').show();
+<% if params[:comment][:parent_id].present? %>
+  $('#reply_<%= params[:comment][:parent_id] %>').after("<%= j render('comments/one_comment') %>");
+  $('.comment_form').remove();
+<% else %>
+$('#add_comment').before("<%= j render('comments/one_comment') %>");
+$('.comment_form').destroy();
+<% end %>
 
-$('.comment_form').after("<%= j render('comments/one_comment') %>")
-$('.comment_form').remove();
-
-$('#comment_new').append("<%= j render('comments/comm_add') %>");
+$('#comment_new').append("<%= j render('comments/comm_add', comment_id: nil) %>");
 
 

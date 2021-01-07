@@ -11,6 +11,6 @@
   </div>
 
   <%= form.hidden_field :parent_id, value: params[:comment_id] if params[:comment_id].present? %>
-
+  <%= form.hidden_field :comment_id, value: params[:comment_id] if params[:comment_id].present? %>
   <%= form.submit("Add comment", {:class => 'btn btn-success'}) %>
 <% end %>
