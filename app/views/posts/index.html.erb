@@ -1,0 +1,53 @@
+<p id="notice"><%= notice %></p>
+<h1 class="display-1" >Many Posts</h1>
+
+<div class="container">
+<% unless @posts.nil?%>
+  <% @posts.each do |post|%>
+    <%autors_id = @autors.find_by(id: post.name) %>
+<div class="container post_box">
+  <h3><%= post.title %></h3>
+  <div class="row">
+    <div class="col align-self-center">
+
+      <p><%=autors_id.full_name%> </p>
+      <p style=""><img src="<%= autors_id.avatar%>"   style= "width: 5%; border-radius: .4rem; border: .2rem solid #4e4e4e;" ></p>
+
+    </div>
+  </div>
+  <p class="lead_time">Created <%= distance_of_time_in_words(post.created_at, Time.now) %> ago</p>
+  <hr>
+  <div class="row">
+    <div class="col col-md-2">
+      <img src = "<%= post.image %>" style="width: 100%; border-radius: .4rem; border: .2rem solid #4e4e4e;">
+    </div>
+    <div class="col col-md-8 post_text"><%= truncate post.content, length: 160 %></div>
+  </div>
+
+  <div class="row" style="margin-top: 1rem">
+    <div class="col-12 col-md-3">
+
+      <img src="https://cdn2.iconfinder.com/data/icons/picol-vector/32/view-512.png" class="icons">
+      <%= post.views %>
+      <img src="https://cdn.iconscout.com/icon/free/png-256/comment-2551199-2136583.png" class="icons">
+      <%= post.comments.size %>
+    </div>
+
+    <div class="col-6 col-md-4">
+      <%= link_to 'Show', post, class: 'btn btn-secondary btn-sm', role: "button", style: "color: white"   %>
+      <% unless current_author.nil?%>
+        <%if current_author.id == post.name.to_i %>
+          <%= link_to 'Edit', edit_post_path(post), class: 'btn btn-info btn-sm', role: "button", style: "color: white" %>
+          <%= link_to 'Delete', post, class: 'btn btn-danger btn-sm', role: "button", style: "color: white" , method: :delete, data: { confirm: 'Are you sure?' } %>
+        <%end %>
+      <%end %>
+    </div>
+  </div>
+ </div>
+    <hr>
+<%end %>
+<%end %>
+  </div>
+<br>
+  <%= link_to 'New Post', new_post_path, class: 'btn btn-success btn-lg ', role: "button", style: "color: white" if current_author  %>
+<%= will_paginate @posts %>
