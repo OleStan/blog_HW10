@@ -11,16 +11,26 @@
       <% end %>
     </div>
     <div class="col-2">
-      <div id="comment_<%= parent.id%>" class="row rating">
-        <div class="col">
-          <%= link_to '+', post_vote_path(@post, comment_id:parent.id, positive:true, type: '+'),
-                      class: 'btn btn-primary btn-sm', role: "button", style: "color: white", remote: true %>
-        </div>
-        <div id="count_likes_<%=parent.id %>" class="col"><%= parent.count_result %></div>
-        <div class="col">
-          <%= link_to '-', post_vote_path(@post, comment_id:parent.id, positive:false, type: '-'),
-                      class: 'btn btn-primary btn-sm', role: "button", style: "color: white", remote: true %>
-        </div>
+      <div class="col align-self-center">
+        <%if current_author.present?%>
+          <%= link_to '↑', post_vote_path(@post, comment_id:parent.id, positive:true, type: '+'),
+                      class: 'btn btn-outline-success btn-sm', role: "button", remote: true%>
+        <%else%>
+          <button type="button" class="btn btn-outline-success btn-sm" disabled style="cursor: not-allowed;">↑</button>
+        <%end %>
+      </div>
+      <div id="count_likes_<%=parent.id %>" class="col">
+            <span title="All votes <%= parent.count_result%>: ↑<%= parent.count_likes%> & ↓<%= parent.count_dislikes%>">
+              <%= parent.count_result %>
+            </span>
+      </div>
+      <div class="col">
+        <%if current_author.present?%>
+          <%= link_to '↓', post_vote_path(@post, comment_id:parent.id, positive:false, type: '-'),
+                      class: 'btn btn-outline-danger btn-sm', role: "button", remote: true %>
+        <%else%>
+          <button type="button" class="btn btn-outline-danger btn-sm" disabled style="cursor: not-allowed;">↓</button>
+        <%end %>
       </div>
     </div>
   </div>
