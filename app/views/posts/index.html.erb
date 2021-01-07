@@ -47,7 +47,7 @@
     <hr>
 <%end %>
 <%end %>
+  <%= will_paginate @posts %>
   </div>
 <br>
   <%= link_to 'New Post', new_post_path, class: 'btn btn-success btn-lg ', role: "button", style: "color: white" if current_author  %>
-<%= will_paginate @posts %>

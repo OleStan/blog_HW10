@@ -1,3 +1,15 @@
 // Place all the styles related to the Posts controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+.previous_page, .next_page, .current{
+  border: 2px solid black;
+  border-radius: 0.4rem;
+  padding: 0.2rem;
+}
+
+.pagination
+{
+  width: 35%;
+  justify-content: space-between;
+  border-bottom: 2px solid #676767;;
+}

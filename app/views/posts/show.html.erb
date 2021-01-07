@@ -64,6 +64,7 @@
 <% end %>
 
 <% unless current_author.nil?%>
+  <h2>Add comments</h2>
   <div id="comment_new">
     <%= render 'comments/comm_add', comment_id: nil %>
   </div>
